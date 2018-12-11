@@ -36,7 +36,7 @@ namespace DBContactLibrary
             return CreateRecord("CreateAddress", sqlParameters);
         }
 
-        public int CreateContactInformation(string info, int contactID)
+        public int CreateContactInformation(string info, int? contactID)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -160,6 +160,24 @@ namespace DBContactLibrary
             return DeleteRecord(id, "DeleteContactToAddress");
         }
 
+
+        public bool DeleteAllContacts()
+        {
+            return DeleteAllRecords("Contact");
+        }
+
+        public bool DeleteAllAddresses()
+        {
+            return DeleteAllRecords("Address");
+        }
+        public bool DeleteAllContactInformations()
+        {
+            return DeleteAllRecords("ContactInformation");
+        }
+        public bool DeleteAllContactsToAddresses()
+        {
+            return DeleteAllRecords("ContactToAddress");
+        }
         /*********************************************
          * PUBLIC ENTITIES
          *********************************************/
@@ -255,6 +273,8 @@ namespace DBContactLibrary
 
         private int CreateRecord(string procedure, List<SqlParameter> sqlParameters)
         {
+            sqlParameters.Select(p => p.Value ?? (p.Value = DBNull.Value));
+
             using (SqlConnection connection = new SqlConnection(connString))
             {
                 connection.Open();
@@ -327,7 +347,7 @@ namespace DBContactLibrary
 
                 using (SqlCommand command = new SqlCommand())
                 {
-                    command.CommandText = $"select * from {table}";
+                    command.CommandText = $"select * from {table} order by id";
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
 
@@ -400,6 +420,26 @@ namespace DBContactLibrary
 
                     return returnValue > 0;
                 }
+            }
+        }
+
+        private bool DeleteAllRecords(string table)
+        {
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.CommandText = $"delete from {table}";
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+
+                    int returnValue = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    return returnValue > 0;
+               }
             }
         }
     }

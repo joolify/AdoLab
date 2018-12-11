@@ -14,7 +14,7 @@ namespace DBContactLibrary.Models
 
         public override string ToString()
         {
-            return $"{ID} {Street} {City} {Zip} \nContacts:\n{String.Join('\n', Contacts)}";
+            return $"{ID} {Street} {City} {Zip} \n Contacts:\n - {String.Join("\n - ", Contacts)}";
         }
     }
 }
