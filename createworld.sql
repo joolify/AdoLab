@@ -7,6 +7,15 @@ go
 use DBContact
 go
 
+drop table ContactInformation
+go
+drop table ContactToAddress
+go
+drop table Contact
+go
+drop table Address
+go
+
 ----------------------------
 -- Create Tables
 ----------------------------
@@ -61,7 +70,7 @@ begin
 	select 
 		*
 	from
-		Contact as C
+		Contact
 	where
 		id = @id
 end
