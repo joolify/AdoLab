@@ -189,20 +189,21 @@ namespace DBContactLibrary
                 ID = contact.ID,
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
-                SSN = contact.SSN
+                SSN = contact.SSN,
+                Addresses = ReadAllContactsToAddresses()
+                    .Where(c2a => c2a.ContactID == ID)
+                    .Select(c2a => ReadAddress(c2a.AddressID))
+                    .ToList(),
+                ContactInformations = ReadAllContactInformations()
+                    .Where(ci => ci.ContactID == ID).ToList()
             };
-
-            List<ContactToAddress> contactToAddresses = ReadAllContactsToAddresses();
-            contactEntity.Addresses = contactToAddresses.Where(c2a => c2a.ContactID == ID).Select(c2a => ReadAddress(c2a.AddressID)).ToList();
-            contactEntity.ContactInformations = ReadAllContactInformations().Where(ci => ci.ContactID == ID).ToList();
 
             return contactEntity;
         }
 
         public List<ContactEntity> ReadAllContactEntities()
         {
-            List<Contact> contacts = ReadAllContacts();
-            return contacts.Select(c => ReadContactEntity(c.ID)).ToList();
+            return ReadAllContacts().Select(c => ReadContactEntity(c.ID)).ToList();
         }
 
         public AddressEntity ReadAddressEntity(int ID)
@@ -213,11 +214,12 @@ namespace DBContactLibrary
                 ID = address.ID,
                 Street = address.Street,
                 City = address.City,
-                Zip = address.Zip
+                Zip = address.Zip,
+                Contacts = ReadAllContactsToAddresses()
+                    .Where(c2a => c2a.AddressID == ID)
+                    .Select(c2a => ReadContact(c2a.ContactID))
+                    .ToList()
             };
-
-            List<ContactToAddress> contactToAddresses = ReadAllContactsToAddresses();
-            addressEntity.Contacts = contactToAddresses.Where(c2a => c2a.AddressID == ID).Select(c2a => ReadContact(c2a.ContactID)).ToList();
 
             return addressEntity;
         }
