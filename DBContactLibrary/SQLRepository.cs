@@ -213,7 +213,7 @@ namespace DBContactLibrary
                 ID = address.ID,
                 Street = address.Street,
                 City = address.City,
-                Zip =  address.Zip
+                Zip = address.Zip
             };
 
             List<ContactToAddress> contactToAddresses = ReadAllContactsToAddresses();
@@ -285,16 +285,22 @@ namespace DBContactLibrary
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
 
-                    SqlParameter sqlId = new SqlParameter("@ID", SqlDbType.Int)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
+                    SqlParameter sqlId = new SqlParameter("@ID", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
                     sqlParameters.Add(sqlId);
 
                     command.Parameters.AddRange(sqlParameters.ToArray());
 
-                    int returnValue = command.ExecuteNonQuery();
+                    int returnValue;
+                    try
+                    {
+                        returnValue = command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return 0;
+                    }
                     connection.Close();
 
                     if (returnValue > 0)
@@ -324,7 +330,16 @@ namespace DBContactLibrary
 
                     command.Parameters.Add(sqlId);
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader;
+                    try
+                    {
+                        reader = command.ExecuteReader();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return default(TOut);
+                    }
 
                     if (reader.Read())
                     {
@@ -351,7 +366,16 @@ namespace DBContactLibrary
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader;
+                    try
+                    {
+                        reader = command.ExecuteReader();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return null;
+                    }
 
                     if (reader.HasRows)
                     {
@@ -388,7 +412,16 @@ namespace DBContactLibrary
 
                     command.Parameters.AddRange(sqlParameters.ToArray());
 
-                    int returnValue = command.ExecuteNonQuery();
+                    int returnValue;
+                    try
+                    {
+                        returnValue = command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return false;
+                    }
                     connection.Close();
 
                     return returnValue > 0;
@@ -415,7 +448,16 @@ namespace DBContactLibrary
 
                     command.Parameters.Add(sqlId);
 
-                    int returnValue = command.ExecuteNonQuery();
+                    int returnValue;
+                    try
+                    {
+                        returnValue = command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return false;
+                    }
                     connection.Close();
 
                     return returnValue > 0;
@@ -435,11 +477,20 @@ namespace DBContactLibrary
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
 
-                    int returnValue = command.ExecuteNonQuery();
+                    int returnValue;
+                    try
+                    {
+                        returnValue = command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        connection.Close();
+                        return false;
+                    }
                     connection.Close();
 
                     return returnValue > 0;
-               }
+                }
             }
         }
     }
