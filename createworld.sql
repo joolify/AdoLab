@@ -226,5 +226,3 @@ begin
 		id = @id
 end
 go
-
-select * from Contact

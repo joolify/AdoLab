@@ -190,11 +190,11 @@ namespace DBContactLibrary
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
                 SSN = contact.SSN,
-                Addresses = ReadAllContactsToAddresses()
+                Addresses = ReadAllContactsToAddresses()?
                     .Where(c2a => c2a.ContactID == ID)
                     .Select(c2a => ReadAddress(c2a.AddressID))
                     .ToList(),
-                ContactInformations = ReadAllContactInformations()
+                ContactInformations = ReadAllContactInformations()?
                     .Where(ci => ci.ContactID == ID).ToList()
             };
 
@@ -203,7 +203,7 @@ namespace DBContactLibrary
 
         public static List<ContactEntity> ReadAllContactEntities()
         {
-            return ReadAllContacts().Select(c => ReadContactEntity(c.ID)).ToList();
+            return ReadAllContacts()?.Select(c => ReadContactEntity(c.ID)).ToList();
         }
 
         public static AddressEntity ReadAddressEntity(int ID)
@@ -227,7 +227,7 @@ namespace DBContactLibrary
         public static List<AddressEntity> ReadAllAddressEntities()
         {
             List<Address> addresses = ReadAllAddresses();
-            return addresses.Select(a => ReadAddressEntity(a.ID)).ToList();
+            return addresses?.Select(a => ReadAddressEntity(a.ID)).ToList();
         }
         /*********************************************
          * PRIVATE CREATE

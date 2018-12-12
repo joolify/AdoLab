@@ -1,4 +1,4 @@
-﻿@model ContactEntity[]
+﻿@model ContactEntityVM[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Contacts";
@@ -6,74 +6,78 @@
 <a asp-controller="Contacts" asp-action="Index">Back</a>
 
 @{
-    foreach (var contactEntity in Model)
+    if (Model != null)
     {
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>
-                    <b>
-                        @contactEntity.FirstName&nbsp;
-                        @contactEntity.LastName&nbsp;
-                        @contactEntity.SSN
-                    </b>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table cellspacing="2" cellpadding="0">
-                        <thead>
+
+        foreach (var contactEntity in Model)
+        {
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>
+                        <b>
+                            @contactEntity.FirstName&nbsp;
+                            @contactEntity.LastName&nbsp;
+                            @contactEntity.SSN
+                        </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellspacing="2" cellpadding="0">
+                            <thead>
                             <tr>
                                 <td colspan="4">
                                     <i>Addresses</i>
                                 </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var address in contactEntity.Addresses)
+                            </thead>
+                            <tbody>
+                            @foreach (var address in contactEntity.AddressVms)
                             {
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>
-                                    @address.City&nbsp;
-                                </td>
-                                <td>
-                                    @address.Street&nbsp;
-                                </td>
-                                <td>
-                                    @address.Zip
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        @address.City&nbsp;
+                                    </td>
+                                    <td>
+                                        @address.Street&nbsp;
+                                    </td>
+                                    <td>
+                                        @address.Zip
+                                    </td>
+                                </tr>
                             }
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table cellspacing="2" cellpadding="0">
-                        <thead>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellspacing="2" cellpadding="0">
+                            <thead>
                             <tr>
                                 <td colspan="2">
                                     <i>Contact information</i>
                                 </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var contactInfo in contactEntity.ContactInformations)
-                                {
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>
-                                    @contactInfo.Info
-                                </td>
-                            </tr>
-                                }
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            </thead>
+                            <tbody>
+                            @foreach (var contactInfo in contactEntity.ContactInformationVms)
+                            {
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        @contactInfo.Info
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        }
     }
 }

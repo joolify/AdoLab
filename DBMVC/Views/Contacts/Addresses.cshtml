@@ -1,4 +1,4 @@
-﻿@model DBContactLibrary.Address[]
+﻿@model AddressVM[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Addresses";
@@ -7,38 +7,43 @@
 @{
     <table class="table">
         <thead>
-        <tr>
-            <td>
-                <b>City:</b>
-            </td>
-            <td>
-                <b>Street:</b>
-            </td>
-            <td>
-                <b>Zip:</b>
-            </td>
-            <td>
-                <b>Edit:</b>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <b>City:</b>
+                </td>
+                <td>
+                    <b>Street:</b>
+                </td>
+                <td>
+                    <b>Zip:</b>
+                </td>
+                <td>
+                    <b>Edit:</b>
+                </td>
+            </tr>
         </thead>
         <tbody>
-            @foreach (var address in Model)
+            @if (Model != null)
             {
-                <tr>
-                    <td>
-                        @address.City&nbsp;
-                    </td>
-                    <td>
-                        @address.Street&nbsp;
-                    </td>
-                    <td>
-                        @address.Zip
-                    </td>
-                    <td>
-                        <a asp-controller="Contacts" asp-action="UpdateAddressForm" asp-route-id="@address.ID">Update</a> | <a asp-controller="Contacts" asp-action="DeleteAddress" asp-route-id="@address.ID">Delete</a>
-                    </td>
-                </tr>
+
+                foreach (var address in Model)
+                {
+                    <tr>
+                        <td>
+                            @address.City&nbsp;
+                        </td>
+                        <td>
+                            @address.Street&nbsp;
+                        </td>
+                        <td>
+                            @address.Zip
+                        </td>
+                        <td>
+                            <a asp-controller="Contacts" asp-action="UpdateAddressForm" asp-route-id="@address.ID">Update</a> | <a asp-controller="Contacts" asp-action="DeleteAddress" asp-route-id="@address.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+
             }
         </tbody>
     </table>

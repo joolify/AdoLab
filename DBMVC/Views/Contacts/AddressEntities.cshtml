@@ -1,14 +1,17 @@
-﻿@model AddressEntity[]
+﻿@model AddressEntityVM[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Contacts";
 }
 <a asp-controller="Contacts" asp-action="Index">Back</a>
 @{
-    foreach (var addressEntity in Model)
+    if (Model != null)
     {
-        <table class="table">
-            <tbody>
+
+        foreach (var addressEntity in Model)
+        {
+            <table class="table">
+                <tbody>
                 <tr>
                     <td>
                         <b>
@@ -22,26 +25,27 @@
                     <td>
                         <table cellspacing="2" cellpadding="0">
                             <tbody>
-                                @foreach (var contact in addressEntity.Contacts)
-                                {
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            @contact.FirstName&nbsp;
-                                        </td>
-                                        <td>
-                                            @contact.LastName&nbsp;
-                                        </td>
-                                        <td>
-                                            @contact.SSN
-                                        </td>
-                                    </tr>
-                                }
+                            @foreach (var contact in addressEntity.ContactVms)
+                            {
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        @contact.FirstName&nbsp;
+                                    </td>
+                                    <td>
+                                        @contact.LastName&nbsp;
+                                    </td>
+                                    <td>
+                                        @contact.SSN
+                                    </td>
+                                </tr>
+                            }
                             </tbody>
                         </table>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
     }
 }

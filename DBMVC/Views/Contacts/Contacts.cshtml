@@ -1,4 +1,4 @@
-﻿@model Contact[]
+﻿@model ContactVM[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Addresses";
@@ -17,26 +17,33 @@
                 <td>
                     <b>Last Name:</b>
                 </td>
+                <td>
+                    <b>Edit: </b>
+                </td>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var contact in Model)
-            {
-                <tr>
-                    <td>
-                        @contact.SSN&nbsp;
-                    </td>
-                    <td>
-                        @contact.FirstName&nbsp;
-                    </td>
-                    <td>
-                        @contact.LastName
-                    </td>
-                    <td>
-                        <a asp-controller="Contacts" asp-action="UpdateContactForm" asp-route-id="@contact.ID">Update</a> | <a asp-controller="Contacts" asp-action="DeleteContact" asp-route-id="@contact.ID">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
+
+        @if (Model != null)
+        {
+            <tbody>
+                @foreach (var contact in Model)
+                {
+                    <tr>
+                        <td>
+                            @contact.SSN&nbsp;
+                        </td>
+                        <td>
+                            @contact.FirstName&nbsp;
+                        </td>
+                        <td>
+                            @contact.LastName
+                        </td>
+                        <td>
+                            <a asp-controller="Contacts" asp-action="UpdateContactForm" asp-route-id="@contact.ID">Update</a> | <a asp-controller="Contacts" asp-action="DeleteContact" asp-route-id="@contact.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
     </table>
 }
