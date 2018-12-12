@@ -2,5 +2,11 @@
     Layout = "_Layout";
     ViewBag.Title = "Contacts";
 }
-<a href="/Contacts/Contact">Contacts</a><br />
-<a href="/Contacts/Address">Address</a><br />
+<a asp-controller="Contacts" asp-action="Addresses">Addresses</a><br />
+<a asp-controller="Contacts" asp-action="Contacts">Contacts</a><br />
+<a asp-controller="Contacts" asp-action="AddressEntities">Address entities</a><br />
+<a asp-controller="Contacts" asp-action="ContactEntites">Contacts entities</a><br />
+<a asp-controller="Contacts" asp-action="ContactForm">Create Contact</a><br />
+<a asp-controller="Contacts" asp-action="AddressForm">Create Address</a><br />
+<a asp-controller="Contacts" asp-action="ContactInformationForm">Create Contact Information</a><br />
+<a asp-controller="Contacts" asp-action="ContactToAddressForm">Create Contact To Address</a><br />

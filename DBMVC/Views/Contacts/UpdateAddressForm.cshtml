@@ -1,0 +1,41 @@
+﻿@model UpdateAddressVM
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Address Form";
+}
+<a asp-controller="Contacts" asp-action="Addresses">Back</a>
+
+<form asp-controller="Contacts" asp-action="UpdateAddressForm" method="post">
+    <table>
+        <tr>
+            <td>
+                <label asp-for="City"></label>
+            </td>
+            <td>
+                <input asp-for="City" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Street"></label>
+            </td>
+            <td>
+                <input asp-for="Street" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Zip"></label>
+            </td>
+            <td>
+                <input asp-for="Zip" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Update</button>
+            </td>
+        </tr>
+    </table>
+</form>

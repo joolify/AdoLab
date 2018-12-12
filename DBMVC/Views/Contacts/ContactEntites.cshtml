@@ -1,9 +1,10 @@
-﻿@model DBContactLibrary.Models.ContactEntity[]
+﻿@model ContactEntity[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Contacts";
 }
-<a href="/">Tillbaka</a>
+<a asp-controller="Contacts" asp-action="Index">Back</a>
+
 @{
     foreach (var contactEntity in Model)
     {

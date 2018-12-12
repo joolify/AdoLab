@@ -1,0 +1,42 @@
+﻿@model Contact[]
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Addresses";
+}
+<a asp-controller="Contacts" asp-action="Index">Back</a>
+@{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <b>SSN:</b>
+                </td>
+                <td>
+                    <b>First Name:</b>
+                </td>
+                <td>
+                    <b>Last Name:</b>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>
+                        @contact.SSN&nbsp;
+                    </td>
+                    <td>
+                        @contact.FirstName&nbsp;
+                    </td>
+                    <td>
+                        @contact.LastName
+                    </td>
+                    <td>
+                        <a asp-controller="Contacts" asp-action="UpdateContactForm" asp-route-id="@contact.ID">Update</a> | <a asp-controller="Contacts" asp-action="DeleteContact" asp-route-id="@contact.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

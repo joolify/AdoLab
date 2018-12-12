@@ -1,0 +1,35 @@
+﻿@model CreateContactInformationVM
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Contact Information Form";
+}
+<a asp-controller="Contacts" asp-action="Index">Back</a>
+
+<form asp-controller="Contacts" asp-action="ContactInformationForm" method="post">
+    <table>
+        <tr>
+            <td>
+                <label asp-for="Info"></label>
+            </td>
+            <td>
+                <input asp-for="Info" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="ContactItems"></label>
+            </td>
+            <td>
+                <select asp-for="SelectedContactValue"
+                        asp-items="Model.ContactItems"></select><br />
+                <span asp-validation-for="SelectedContactValue"></span>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+    </table>
+</form>

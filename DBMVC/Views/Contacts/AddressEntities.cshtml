@@ -1,9 +1,9 @@
-﻿@model DBContactLibrary.Models.AddressEntity[]
+﻿@model AddressEntity[]
 @{
     Layout = "_Layout";
     ViewBag.Title = "Contacts";
 }
-<a href="/">Tillbaka</a>
+<a asp-controller="Contacts" asp-action="Index">Back</a>
 @{
     foreach (var addressEntity in Model)
     {

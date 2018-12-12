@@ -7,15 +7,6 @@ go
 use DBContact
 go
 
-drop table ContactInformation
-go
-drop table ContactToAddress
-go
-drop table Contact
-go
-drop table Address
-go
-
 ----------------------------
 -- Create Tables
 ----------------------------
@@ -135,6 +126,8 @@ begin
 end
 go
 
+
+
 create procedure DeleteAddress @id int as
 begin
 	delete from
@@ -233,3 +226,5 @@ begin
 		id = @id
 end
 go
+
+select * from Contact

@@ -1,0 +1,41 @@
+﻿@model UpdateContactVM
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Update Contact Form";
+}
+<a asp-controller="Contacts" asp-action="Contacts">Back</a>
+
+<form asp-controller="Contacts" asp-action="UpdateContactForm" method="post">
+    <table>
+        <tr>
+            <td>
+                <label asp-for="SSN"></label>
+            </td>
+            <td>
+                <input asp-for="SSN" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="FirstName"></label>
+            </td>
+            <td>
+                <input asp-for="FirstName" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="LastName"></label>
+            </td>
+            <td>
+                <input asp-for="LastName" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Update</button>
+            </td>
+        </tr>
+    </table>
+</form>

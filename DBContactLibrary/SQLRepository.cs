@@ -7,14 +7,14 @@ using DBContactLibrary.Models;
 
 namespace DBContactLibrary
 {
-    public class SQLRepository
+    public static class SQLRepository
     {
-        private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBContact;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private static string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBContact;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         /*********************************************
          * PUBLIC CREATE
          *********************************************/
-        public int CreateContact(string ssn, string firstName, string lastName)
+        public static int CreateContact(string ssn, string firstName, string lastName)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -25,7 +25,7 @@ namespace DBContactLibrary
             return CreateRecord("CreateContact", sqlParameters);
         }
 
-        public int CreateAddress(string street, string city, string zip)
+        public static int CreateAddress(string street, string city, string zip)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -36,7 +36,7 @@ namespace DBContactLibrary
             return CreateRecord("CreateAddress", sqlParameters);
         }
 
-        public int CreateContactInformation(string info, int? contactID)
+        public static int CreateContactInformation(string info, int? contactID)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -46,7 +46,7 @@ namespace DBContactLibrary
             return CreateRecord("CreateContactInformation", sqlParameters);
         }
 
-        public int CreateContactToAddress(int contactID, int addressID)
+        public static int CreateContactToAddress(int contactID, int addressID)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -60,35 +60,35 @@ namespace DBContactLibrary
          * PUBLIC READ
          *********************************************/
 
-        public Contact ReadContact(int ID)
+        public static Contact ReadContact(int ID)
         {
             return ReadRecord(ID, "ReadContact", CreateContObj);
         }
-        public Address ReadAddress(int ID)
+        public static Address ReadAddress(int ID)
         {
             return ReadRecord(ID, "ReadAddress", CreateAddressObj);
         }
-        public ContactInformation ReadContactInformation(int ID)
+        public static ContactInformation ReadContactInformation(int ID)
         {
             return ReadRecord(ID, "ReadContactInformation", CreateContactInformationObj);
         }
-        public ContactToAddress ReadContactToAddress(int ID)
+        public static ContactToAddress ReadContactToAddress(int ID)
         {
             return ReadRecord(ID, "ReadContactToAddress", CreateContactToAddressObj);
         }
-        public List<Contact> ReadAllContacts()
+        public static List<Contact> ReadAllContacts()
         {
             return ReadAllRecords("Contact", CreateContObj);
         }
-        public List<Address> ReadAllAddresses()
+        public static List<Address> ReadAllAddresses()
         {
             return ReadAllRecords("Address", CreateAddressObj);
         }
-        public List<ContactInformation> ReadAllContactInformations()
+        public static List<ContactInformation> ReadAllContactInformations()
         {
             return ReadAllRecords("ContactInformation", CreateContactInformationObj);
         }
-        public List<ContactToAddress> ReadAllContactsToAddresses()
+        public static List<ContactToAddress> ReadAllContactsToAddresses()
         {
             return ReadAllRecords("ContactToAddress", CreateContactToAddressObj);
         }
@@ -96,7 +96,7 @@ namespace DBContactLibrary
         /*********************************************
          * PUBLIC UPDATE
          *********************************************/
-        public bool UpdateContact(int id, string ssn, string firstName, string lastName)
+        public static bool UpdateContact(int id, string ssn, string firstName, string lastName)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -107,7 +107,7 @@ namespace DBContactLibrary
             };
             return UpdateRecord("UpdateContact", sqlParameters);
         }
-        public bool UpdateAddress(int id, string street, string city, string zip)
+        public static bool UpdateAddress(int id, string street, string city, string zip)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -118,7 +118,7 @@ namespace DBContactLibrary
             };
             return UpdateRecord("UpdateAddress", sqlParameters);
         }
-        public bool UpdateContactInformation(int id, string info, int contactID)
+        public static bool UpdateContactInformation(int id, string info, int contactID)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -128,7 +128,7 @@ namespace DBContactLibrary
             };
             return UpdateRecord("UpdateContactInformation", sqlParameters);
         }
-        public bool UpdateContactToAddress(int id, int contactID, int addressID)
+        public static bool UpdateContactToAddress(int id, int contactID, int addressID)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -142,46 +142,46 @@ namespace DBContactLibrary
         /*********************************************
          * PUBLIC DELETE
          *********************************************/
-        public bool DeleteContact(int id)
+        public static bool DeleteContact(int id)
         {
             return DeleteRecord(id, "DeleteContact");
         }
-        public bool DeleteAddress(int id)
+        public static bool DeleteAddress(int id)
         {
             return DeleteRecord(id, "DeleteAddress");
         }
-        public bool DeleteContactInformation(int id)
+        public static bool DeleteContactInformation(int id)
         {
             return DeleteRecord(id, "DeleteContactInformation");
         }
 
-        public bool DeleteContactToAddress(int id)
+        public static bool DeleteContactToAddress(int id)
         {
             return DeleteRecord(id, "DeleteContactToAddress");
         }
 
 
-        public bool DeleteAllContacts()
+        public static bool DeleteAllContacts()
         {
             return DeleteAllRecords("Contact");
         }
 
-        public bool DeleteAllAddresses()
+        public static bool DeleteAllAddresses()
         {
             return DeleteAllRecords("Address");
         }
-        public bool DeleteAllContactInformations()
+        public static bool DeleteAllContactInformations()
         {
             return DeleteAllRecords("ContactInformation");
         }
-        public bool DeleteAllContactsToAddresses()
+        public static bool DeleteAllContactsToAddresses()
         {
             return DeleteAllRecords("ContactToAddress");
         }
         /*********************************************
          * PUBLIC ENTITIES
          *********************************************/
-        public ContactEntity ReadContactEntity(int ID)
+        public static ContactEntity ReadContactEntity(int ID)
         {
             Contact contact = ReadContact(ID);
             ContactEntity contactEntity = new ContactEntity
@@ -201,12 +201,12 @@ namespace DBContactLibrary
             return contactEntity;
         }
 
-        public List<ContactEntity> ReadAllContactEntities()
+        public static List<ContactEntity> ReadAllContactEntities()
         {
             return ReadAllContacts().Select(c => ReadContactEntity(c.ID)).ToList();
         }
 
-        public AddressEntity ReadAddressEntity(int ID)
+        public static AddressEntity ReadAddressEntity(int ID)
         {
             Address address = ReadAddress(ID);
             AddressEntity addressEntity = new AddressEntity
@@ -224,7 +224,7 @@ namespace DBContactLibrary
             return addressEntity;
         }
 
-        public List<AddressEntity> ReadAllAddressEntities()
+        public static List<AddressEntity> ReadAllAddressEntities()
         {
             List<Address> addresses = ReadAllAddresses();
             return addresses.Select(a => ReadAddressEntity(a.ID)).ToList();
@@ -232,7 +232,7 @@ namespace DBContactLibrary
         /*********************************************
          * PRIVATE CREATE
          *********************************************/
-        private Contact CreateContObj(SqlDataReader reader)
+        private static Contact CreateContObj(SqlDataReader reader)
         {
             return new Contact
             {
@@ -243,7 +243,7 @@ namespace DBContactLibrary
             };
         }
 
-        private Address CreateAddressObj(SqlDataReader reader)
+        private static Address CreateAddressObj(SqlDataReader reader)
         {
             return new Address
             {
@@ -253,7 +253,7 @@ namespace DBContactLibrary
                 Zip = (string)reader["Zip"]
             };
         }
-        private ContactInformation CreateContactInformationObj(SqlDataReader reader)
+        private static ContactInformation CreateContactInformationObj(SqlDataReader reader)
         {
             return new ContactInformation
             {
@@ -263,7 +263,7 @@ namespace DBContactLibrary
             };
         }
 
-        private ContactToAddress CreateContactToAddressObj(SqlDataReader reader)
+        private static ContactToAddress CreateContactToAddressObj(SqlDataReader reader)
         {
             return new ContactToAddress
             {
@@ -273,7 +273,7 @@ namespace DBContactLibrary
             };
         }
 
-        private int CreateRecord(string procedure, List<SqlParameter> sqlParameters)
+        private static int CreateRecord(string procedure, List<SqlParameter> sqlParameters)
         {
             sqlParameters.Select(p => p.Value ?? (p.Value = DBNull.Value));
 
@@ -316,7 +316,7 @@ namespace DBContactLibrary
         /*********************************************
          * PRIVATE READ
          *********************************************/
-        private TOut ReadRecord<TOut>(int ID, string procedure, Func<SqlDataReader, TOut> createObject)
+        private static TOut ReadRecord<TOut>(int ID, string procedure, Func<SqlDataReader, TOut> createObject)
         {
             using (SqlConnection connection = new SqlConnection(connString))
             {
@@ -356,7 +356,7 @@ namespace DBContactLibrary
             }
         }
 
-        private List<TOut> ReadAllRecords<TOut>(string table, Func<SqlDataReader, TOut> createObject)
+        private static List<TOut> ReadAllRecords<TOut>(string table, Func<SqlDataReader, TOut> createObject)
         {
             using (SqlConnection connection = new SqlConnection(connString))
             {
@@ -400,7 +400,7 @@ namespace DBContactLibrary
         /*********************************************
          * PRIVATE UPDATE
          *********************************************/
-        private bool UpdateRecord(string procedure, List<SqlParameter> sqlParameters)
+        private static bool UpdateRecord(string procedure, List<SqlParameter> sqlParameters)
         {
             using (SqlConnection connection = new SqlConnection(connString))
             {
@@ -434,7 +434,7 @@ namespace DBContactLibrary
         /*********************************************
           PRIVATE DELETE
          *********************************************/
-        private bool DeleteRecord(int id, string procedure)
+        private static bool DeleteRecord(int id, string procedure)
         {
             using (SqlConnection connection = new SqlConnection(connString))
             {
@@ -467,7 +467,7 @@ namespace DBContactLibrary
             }
         }
 
-        private bool DeleteAllRecords(string table)
+        private static bool DeleteAllRecords(string table)
         {
             using (SqlConnection connection = new SqlConnection(connString))
             {
